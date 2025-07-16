@@ -1,14 +1,16 @@
+import { useState } from "react"
 import { Button } from "./components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card"
 import { Badge } from "./components/ui/badge"
-import { ExternalLink, Github, Mail, Twitter, Linkedin, Code, Zap, Globe } from "lucide-react"
+import { ExternalLink, Github, Mail, Twitter, Linkedin, Code, Zap, Globe, Menu, X } from "lucide-react"
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-pink-50">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-purple-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden">
@@ -16,12 +18,52 @@ function App() {
               </div>
               <span className="text-xl font-bold text-gray-900">Erika Labs</span>
             </div>
+            
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#projects" className="text-gray-700 hover:text-indigo-600 transition-colors">Projects</a>
               <a href="#about" className="text-gray-700 hover:text-indigo-600 transition-colors">About</a>
               <a href="#contact" className="text-gray-700 hover:text-indigo-600 transition-colors">Contact</a>
             </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
+
+          {/* Mobile Navigation Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t border-purple-200 bg-white/95 backdrop-blur-md absolute top-full left-0 right-0 shadow-lg">
+              <nav className="px-4 py-4 space-y-3">
+                <a 
+                  href="#projects" 
+                  className="block text-gray-700 hover:text-indigo-600 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Projects
+                </a>
+                <a 
+                  href="#about" 
+                  className="block text-gray-700 hover:text-indigo-600 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  About
+                </a>
+                <a 
+                  href="#contact" 
+                  className="block text-gray-700 hover:text-indigo-600 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </a>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
@@ -63,9 +105,9 @@ function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="grid md:grid-cols-2 gap-8 mb-12 isolate">
             {/* KairosTag Project */}
-            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden relative">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between mb-2">
                   <Badge className="bg-blue-500 text-white">Active</Badge>
@@ -99,7 +141,7 @@ function App() {
             </Card>
 
             {/* Davis Project */}
-            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-green-50 to-emerald-100 overflow-hidden">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-green-50 to-emerald-100 overflow-hidden relative">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between mb-2">
                   <Badge className="bg-green-500 text-white">Active</Badge>
